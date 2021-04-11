@@ -5,6 +5,7 @@
  */
 package sistemadetiendaropa;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,11 +23,23 @@ public class frmSistemadeTiendaRopa extends javax.swing.JFrame {
         this.modelo.addColumn("NACIONALIDAD");
         this.modelo.addColumn("GENERO");
         this.modelo.addColumn("TALLAS");
+        this.modelo.addColumn("CANTIDAD");        
         this.modelo.addColumn("PRENDAS");
-        this.modelo.addColumn("CANTIDAD");
         this.modelo.addColumn("PRECIO UNITARIO");
         this.modelo.addColumn("TOTAL A PAGAR");
              
+    }
+    
+    public void netoPagar(){
+        double sumatoria;
+        double sumatorial=0;
+        int totalrow=tabladetalles.getRowCount();
+        totalrow-=1;
+        for (int i = 0; i <= (totalrow); i++) {
+            sumatoria=Double.parseDouble(String.valueOf(tabladetalles.getValueAt(i, 6)));
+            sumatorial+=sumatoria;
+        }
+        txtnetopagar.setText("S/ "+String.valueOf(sumatorial));
     }
 
     /**
@@ -65,6 +78,7 @@ public class frmSistemadeTiendaRopa extends javax.swing.JFrame {
         txttotal = new javax.swing.JTextField();
         btngenerar = new javax.swing.JButton();
         btnlimpiar = new javax.swing.JButton();
+        btnBoleta = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabladetalles = new javax.swing.JTable();
@@ -75,6 +89,7 @@ public class frmSistemadeTiendaRopa extends javax.swing.JFrame {
         txtnetopagar = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema Tienda de Ropa");
 
         jLabel1.setText("Sistema Tienda de Ropa");
 
@@ -135,6 +150,11 @@ public class frmSistemadeTiendaRopa extends javax.swing.JFrame {
 
         buttonGroup1.add(botonh);
         botonh.setText("Hombre");
+        botonh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonhActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(botonm);
         botonm.setText("Mujer");
@@ -151,6 +171,8 @@ public class frmSistemadeTiendaRopa extends javax.swing.JFrame {
 
         jLabel14.setText("Total a Pagar:");
 
+        txttotal.setEditable(false);
+
         btngenerar.setText("Generar Compra");
         btngenerar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,53 +187,59 @@ public class frmSistemadeTiendaRopa extends javax.swing.JFrame {
             }
         });
 
+        btnBoleta.setText("Generar Boleta");
+        btnBoleta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBoletaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addGap(81, 81, 81)
-                .addComponent(jLabel9)
-                .addGap(129, 129, 129)
-                .addComponent(jLabel10)
-                .addGap(65, 65, 65)
-                .addComponent(jLabel11)
-                .addGap(51, 51, 51)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel13)
-                .addGap(24, 24, 24))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBoleta)
+                .addGap(36, 36, 36)
+                .addComponent(btngenerar)
+                .addGap(40, 40, 40)
+                .addComponent(btnlimpiar)
+                .addGap(60, 60, 60)
+                .addComponent(jLabel14)
+                .addGap(18, 18, 18)
+                .addComponent(txttotal, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(81, 81, 81)
+                        .addComponent(jLabel9)
+                        .addGap(129, 129, 129)
+                        .addComponent(jLabel10)
+                        .addGap(65, 65, 65)
+                        .addComponent(jLabel11)
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel13)
+                        .addGap(24, 24, 24))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(cbonacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(12, 12, 12)
                         .addComponent(botonh)
                         .addGap(18, 18, 18)
                         .addComponent(botonm)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btngenerar)
-                        .addGap(61, 61, 61)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbotallas, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnlimpiar))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbotallas, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtprenda, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txtcantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtprecio))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel14)
-                        .addGap(18, 18, 18)
-                        .addComponent(txttotal, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(txtprecio, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,7 +268,8 @@ public class frmSistemadeTiendaRopa extends javax.swing.JFrame {
                     .addComponent(btngenerar)
                     .addComponent(btnlimpiar)
                     .addComponent(jLabel14)
-                    .addComponent(txttotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txttotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBoleta))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -299,6 +328,8 @@ public class frmSistemadeTiendaRopa extends javax.swing.JFrame {
 
         jLabel15.setText("Neto a Pagar s/.");
 
+        txtnetopagar.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -356,6 +387,7 @@ public class frmSistemadeTiendaRopa extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btngenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngenerarActionPerformed
@@ -368,12 +400,12 @@ public class frmSistemadeTiendaRopa extends javax.swing.JFrame {
         
         if(botonh.isSelected()){
             this.modelo.addRow(new Object[]{this.cbonacionalidad.getSelectedIndex(),"Hombre",
-               this.cbotallas.getSelectedItem(),this.txtprenda.getText(),this.txtcantidad.getText(),
+               this.cbotallas.getSelectedItem(),this.txtcantidad.getText(),this.txtprenda.getText(),
                this.txtprecio.getText(),this.txttotal.getText()});
         }
         else if(botonm.isSelected()){
              this.modelo.addRow(new Object[]{this.cbonacionalidad.getSelectedIndex(),"Mujer",
-               this.cbotallas.getSelectedItem(),this.txtprenda.getText(),this.txtcantidad.getText(),
+               this.cbotallas.getSelectedItem(),this.txtcantidad.getText(),this.txtprenda.getText(),
                this.txtprecio.getText(),this.txttotal.getText()});
         }        
     }//GEN-LAST:event_btngenerarActionPerformed
@@ -398,26 +430,27 @@ public class frmSistemadeTiendaRopa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnquitarActionPerformed
 
     private void btnlimpiartablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlimpiartablaActionPerformed
-        // TODO add your handling code here:
-        int x=this.modelo.getRowCount();
-        for (int y = 0; y <=x; y++){
-            this.modelo.removeRow(0);
-        }
+        //Removiendo rows de manera simple
+        this.modelo.setRowCount(0);
         this.txtnetopagar.setText("");
     }//GEN-LAST:event_btnlimpiartablaActionPerformed
 
     private void btnnetopagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnetopagarActionPerformed
         // TODO add your handling code here:
-        double sumatoria;
-        double sumatorial=0;
-        int totalrow=tabladetalles.getRowCount();
-        totalrow-=1;
-        for (int i = 0; i <= (totalrow); i++) {
-            sumatoria=Double.parseDouble(String.valueOf(tabladetalles.getValueAt(i, 6)));
-            sumatorial+=sumatoria;
-        }
-        txtnetopagar.setText("S. "+String.valueOf(sumatorial));
+        netoPagar();
     }//GEN-LAST:event_btnnetopagarActionPerformed
+
+    private void btnBoletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBoletaActionPerformed
+        String nombreCliente = JOptionPane.showInputDialog(null, "Ingrese el nombre del cliente:","Nombre del Cliente", 1);
+        String idCliente = JOptionPane.showInputDialog(null, "Ingrese el documento de identidad del cliente:","Documento del Cliente", 1);
+        this.serieboleta++;
+        netoPagar();
+        new FrmBoleta(modelo, nombreCliente, idCliente, txtnetopagar.getText(), serieboleta).setVisible(true);
+    }//GEN-LAST:event_btnBoletaActionPerformed
+
+    private void botonhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonhActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonhActionPerformed
 DefaultTableModel modelo=new DefaultTableModel();
 private void txtcantidadActionPerformed(java.awt.event.ActionEvent evt){
     
@@ -620,6 +653,7 @@ public void descuentos_hombres_peruanos(){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton botonh;
     private javax.swing.JRadioButton botonm;
+    private javax.swing.JButton btnBoleta;
     private javax.swing.JButton btngenerar;
     private javax.swing.JButton btnlimpiar;
     private javax.swing.JButton btnlimpiartabla;
@@ -654,4 +688,5 @@ public void descuentos_hombres_peruanos(){
     private javax.swing.JTextField txtprenda;
     private javax.swing.JTextField txttotal;
     // End of variables declaration//GEN-END:variables
+    private int serieboleta = 0;
 }
